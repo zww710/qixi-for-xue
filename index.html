@@ -168,13 +168,13 @@
         <defs>
           <!-- 花瓣 -->
           <path id="petal" d="M0,0 C12,-2 22,-8 24,-18 C26,-28 20,-38 8,-42 C2,-44 -2,-44 -8,-42 C-20,-38 -26,-28 -24,-18 C-22,-8 -12,-2 0,0 Z"/>
-          <!-- 满天星（白色配草） -->
+          <!-- 满天星（白色细碎配草） -->
           <g id="gyps">
-            <circle r="2.4" fill="#ffffff" opacity=".96"/>
-            <circle cx="5" cy="3" r="2" fill="#ffffff" opacity=".86"/>
-            <circle cx="-5" cy="4" r="2" fill="#ffffff" opacity=".86"/>
-            <circle cx="2" cy="-4" r="1.8" fill="#ffffff" opacity=".82"/>
-            <circle cx="-3" cy="-3" r="1.6" fill="#ffffff" opacity=".74"/>
+            <circle r="2.3" fill="#ffffff" opacity=".96"/>
+            <circle cx="5" cy="3" r="1.9" fill="#ffffff" opacity=".86"/>
+            <circle cx="-5" cy="4" r="1.9" fill="#ffffff" opacity=".86"/>
+            <circle cx="2" cy="-4" r="1.7" fill="#ffffff" opacity=".82"/>
+            <circle cx="-3" cy="-3" r="1.5" fill="#ffffff" opacity=".74"/>
             <circle cx="0" cy="0" r="1" fill="#ffd9e4"/>
           </g>
 
@@ -191,8 +191,8 @@
           </radialGradient>
           <!-- 包装纸渐变（浅紫） -->
           <linearGradient id="gWrapLav" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#e9ddf7"/>
-            <stop offset="100%" stop-color="#c3a6dd"/>
+            <stop offset="0%" stop-color="#e7d9f6"/>
+            <stop offset="100%" stop-color="#c2a4de"/>
           </linearGradient>
 
           <!-- 红玫瑰 -->
@@ -220,7 +220,7 @@
             <circle r="3" fill="#ff9fb0"/>
           </g>
 
-          <!-- 深红玫瑰（下层/阴影） -->
+          <!-- 深红玫瑰（下层/阴影，收进包装纸） -->
           <g id="roseRedDeep">
             <g fill="url(#gRedDeep)" stroke="#5f0719" stroke-width="0.7" stroke-linejoin="round">
               <use href="#petal"/><use href="#petal" transform="rotate(60)"/>
@@ -251,95 +251,130 @@
 
         <!-- 花茎（收拢在包装纸内，被包裹遮住） -->
         <g stroke="#4c9668" stroke-width="4.5" fill="none" stroke-linecap="round">
-          <path d="M200,250 C 200,320 200,400 200,486"/>
-          <path d="M150,234 C 165,320 182,400 200,486"/>
-          <path d="M250,234 C 235,320 218,400 200,486"/>
-          <path d="M118,200 C 145,310 175,400 200,486"/>
-          <path d="M282,200 C 255,310 225,400 200,486"/>
+          <path d="M200,252 C 200,320 200,400 200,486"/>
+          <path d="M150,236 C 165,320 182,400 200,486"/>
+          <path d="M250,236 C 235,320 218,400 200,486"/>
+          <path d="M120,204 C 145,310 175,400 200,486"/>
+          <path d="M280,204 C 255,310 225,400 200,486"/>
         </g>
 
-        <!-- 红玫瑰花头：饱满半球形（馒头形），从后往前 -->
-        <!-- 第1层·顶部圆拱 -->
-        <use href="#roseRed"     transform="translate(200,140) scale(1.0)"/>
-        <use href="#roseRed"     transform="translate(172,147) scale(.94)"/>
-        <use href="#roseRed"     transform="translate(228,147) scale(.94)"/>
-        <use href="#roseRed"     transform="translate(145,162) scale(1.0) rotate(20)"/>
-        <use href="#roseRed"     transform="translate(200,156) scale(1.08)"/>
-        <use href="#roseRed"     transform="translate(255,162) scale(1.0) rotate(-20)"/>
+        <!-- 红玫瑰花头：饱满半球，错落有致（非整齐平铺） -->
+        <!-- 背部/顶部圆拱（形成半球轮廓） -->
+        <use href="#roseRed"  transform="translate(200,118) scale(1.0) rotate(4)"/>
+        <use href="#roseRed"  transform="translate(165,128) scale(.95) rotate(15)"/>
+        <use href="#roseRed"  transform="translate(235,128) scale(.95) rotate(-15)"/>
+        <use href="#roseRed"  transform="translate(135,148) scale(.9) rotate(22)"/>
+        <use href="#roseRed"  transform="translate(265,148) scale(.9) rotate(-22)"/>
 
-        <!-- 第2层·中上 -->
-        <use href="#roseRed"     transform="translate(122,185) scale(1.05) rotate(14)"/>
-        <use href="#roseRed"     transform="translate(165,178) scale(1.12)"/>
-        <use href="#roseRed"     transform="translate(235,178) scale(1.12)"/>
-        <use href="#roseRed"     transform="translate(278,185) scale(1.05) rotate(-14)"/>
+        <!-- 中上（向两侧舒展） -->
+        <use href="#roseRed"  transform="translate(120,172) scale(1.0) rotate(12)"/>
+        <use href="#roseRed"  transform="translate(160,162) scale(1.05) rotate(5)"/>
+        <use href="#roseRed"  transform="translate(200,158) scale(1.1) rotate(-8)"/>
+        <use href="#roseRed"  transform="translate(240,162) scale(1.05) rotate(8)"/>
+        <use href="#roseRed"  transform="translate(280,172) scale(1.0) rotate(-12)"/>
 
-        <!-- 第3层·中下（最宽处） -->
-        <use href="#roseRed"     transform="translate(108,212) scale(1.1) rotate(10)"/>
-        <use href="#roseRed"     transform="translate(150,208) scale(1.2)"/>
-        <use href="#roseRed"     transform="translate(200,203) scale(1.25)"/>
-        <use href="#roseRed"     transform="translate(250,208) scale(1.2)"/>
-        <use href="#roseRed"     transform="translate(292,212) scale(1.1) rotate(-10)"/>
+        <!-- 中下（最宽处，撑开半球） -->
+        <use href="#roseRed"  transform="translate(108,200) scale(1.1) rotate(8)"/>
+        <use href="#roseRed"  transform="translate(148,195) scale(1.18) rotate(-4)"/>
+        <use href="#roseRed"  transform="translate(190,190) scale(1.22) rotate(6)"/>
+        <use href="#roseRed"  transform="translate(230,190) scale(1.2) rotate(-6)"/>
+        <use href="#roseRed"  transform="translate(268,198) scale(1.12) rotate(-8)"/>
 
-        <!-- 第4层·下缘（收向包装纸） -->
-        <use href="#roseRedDeep" transform="translate(118,238) scale(1.15) rotate(8)"/>
-        <use href="#roseRedDeep" transform="translate(158,236) scale(1.28)"/>
-        <use href="#roseRedDeep" transform="translate(242,236) scale(1.28)"/>
-        <use href="#roseRedDeep" transform="translate(282,238) scale(1.15) rotate(-8)"/>
+        <!-- 下缘（收进包装纸，用深红表现纵深） -->
+        <use href="#roseRedDeep" transform="translate(115,228) scale(1.15) rotate(6)"/>
+        <use href="#roseRedDeep" transform="translate(158,226) scale(1.25) rotate(-3)"/>
+        <use href="#roseRedDeep" transform="translate(200,222) scale(1.28) rotate(2)"/>
+        <use href="#roseRedDeep" transform="translate(242,226) scale(1.25) rotate(3)"/>
+        <use href="#roseRedDeep" transform="translate(285,228) scale(1.15) rotate(-6)"/>
 
         <!-- 中心焦点 -->
-        <use href="#roseRed"     transform="translate(200,248) scale(1.38)"/>
+        <use href="#roseRed"  transform="translate(200,210) scale(1.4) rotate(-3)"/>
 
-        <!-- 填缝小玫瑰 -->
-        <use href="#roseRed"     transform="translate(185,168) scale(.78) rotate(28)"/>
-        <use href="#roseRed"     transform="translate(215,168) scale(.78) rotate(-28)"/>
+        <!-- 填缝小花苞（让花团更饱满自然） -->
+        <use href="#roseRed"  transform="translate(178,140) scale(.7) rotate(25)"/>
+        <use href="#roseRed"  transform="translate(222,140) scale(.7) rotate(-25)"/>
+        <use href="#roseRed"  transform="translate(150,178) scale(.72) rotate(15)"/>
+        <use href="#roseRed"  transform="translate(250,178) scale(.72) rotate(-15)"/>
+        <use href="#roseRed"  transform="translate(175,210) scale(.75) rotate(10)"/>
+        <use href="#roseRed"  transform="translate(225,210) scale(.75) rotate(-10)"/>
 
-        <!-- 满天星（白色配草）——填充花团之间，让半球更蓬松 -->
-        <use href="#gyps" transform="translate(160,135) scale(1.15)"/>
-        <use href="#gyps" transform="translate(240,135) scale(1.15)"/>
-        <use href="#gyps" transform="translate(200,132) scale(1)"/>
-        <use href="#gyps" transform="translate(133,170) scale(1.1)"/>
-        <use href="#gyps" transform="translate(267,170) scale(1.1)"/>
-        <use href="#gyps" transform="translate(190,188) scale(1)"/>
-        <use href="#gyps" transform="translate(212,190) scale(.95)"/>
-        <use href="#gyps" transform="translate(118,222) scale(1.1)"/>
-        <use href="#gyps" transform="translate(282,222) scale(1.1)"/>
-        <use href="#gyps" transform="translate(168,222) scale(1.05)"/>
-        <use href="#gyps" transform="translate(232,222) scale(1.05)"/>
-        <use href="#gyps" transform="translate(200,224) scale(1.1)"/>
-        <use href="#gyps" transform="translate(140,248) scale(1.05)"/>
-        <use href="#gyps" transform="translate(260,248) scale(1.05)"/>
-        <use href="#gyps" transform="translate(148,205) scale(.9)"/>
-        <use href="#gyps" transform="translate(252,205) scale(.9)"/>
-        <use href="#gyps" transform="translate(176,140) scale(.85)"/>
-        <use href="#gyps" transform="translate(224,140) scale(.85)"/>
+        <!-- 满天星（白色细碎配草）——不规则散落在花缝之间 -->
+        <use href="#gyps" transform="translate(185,128) scale(1.1)"/>
+        <use href="#gyps" transform="translate(215,128) scale(1.1)"/>
+        <use href="#gyps" transform="translate(150,140) scale(.95)"/>
+        <use href="#gyps" transform="translate(250,140) scale(.95)"/>
+        <use href="#gyps" transform="translate(125,158) scale(1.0)"/>
+        <use href="#gyps" transform="translate(275,158) scale(1.0)"/>
+        <use href="#gyps" transform="translate(165,168) scale(.9)"/>
+        <use href="#gyps" transform="translate(235,168) scale(.9)"/>
+        <use href="#gyps" transform="translate(200,145) scale(1.05)"/>
+        <use href="#gyps" transform="translate(118,186) scale(1.05)"/>
+        <use href="#gyps" transform="translate(282,186) scale(1.05)"/>
+        <use href="#gyps" transform="translate(140,200) scale(1.0)"/>
+        <use href="#gyps" transform="translate(260,200) scale(1.0)"/>
+        <use href="#gyps" transform="translate(185,205) scale(.9)"/>
+        <use href="#gyps" transform="translate(215,205) scale(.9)"/>
+        <use href="#gyps" transform="translate(200,180) scale(1.1)"/>
+        <use href="#gyps" transform="translate(160,215) scale(1.0)"/>
+        <use href="#gyps" transform="translate(240,215) scale(1.0)"/>
+        <use href="#gyps" transform="translate(128,215) scale(.95)"/>
+        <use href="#gyps" transform="translate(272,215) scale(.95)"/>
+        <use href="#gyps" transform="translate(200,238) scale(1.05)"/>
+        <use href="#gyps" transform="translate(148,238) scale(.9)"/>
+        <use href="#gyps" transform="translate(252,238) scale(.9)"/>
+        <use href="#gyps" transform="translate(172,235) scale(.85)"/>
+        <use href="#gyps" transform="translate(228,235) scale(.85)"/>
+        <use href="#gyps" transform="translate(185,220) scale(.9)"/>
+        <use href="#gyps" transform="translate(215,220) scale(.9)"/>
 
-        <!-- 浅紫色包装纸：漏斗形向内收拢 -->
-        <path d="M200,246 C 136,258 92,320 88,482 L 312,482 C 308,320 264,258 200,246 Z" fill="url(#gWrapLav)"/>
-        <path d="M200,252 C 148,264 104,330 100,482 L 300,482 C 296,330 252,264 200,252 Z" fill="#efe4f7"/>
-        <path d="M200,258 C 158,270 114,340 110,482 L 290,482 C 286,340 242,270 200,258 Z" fill="#f6eefb"/>
+        <!-- 浅紫色褶皱包装纸：上宽下窄，向内收拢 -->
+        <path d="M200,244 C 136,256 92,318 88,482 L 312,482 C 308,318 264,256 200,244 Z" fill="url(#gWrapLav)"/>
+        <path d="M200,250 C 148,262 104,330 100,482 L 300,482 C 296,330 252,262 200,250 Z" fill="#eee2f6"/>
+        <path d="M200,256 C 158,268 114,340 110,482 L 290,482 C 286,340 242,268 200,256 Z" fill="#f6eefb"/>
 
-        <!-- 包装纸褶皱折痕 -->
-        <path d="M200,252 C 178,300 166,392 158,482" stroke="#c9aedf" stroke-width="1.5" fill="none" opacity=".55"/>
-        <path d="M200,252 C 222,300 234,392 242,482" stroke="#c9aedf" stroke-width="1.5" fill="none" opacity=".55"/>
-        <path d="M200,258 C 170,306 150,396 138,482" stroke="#d4bce8" stroke-width="1.5" fill="none" opacity=".5"/>
-        <path d="M200,258 C 230,306 250,396 262,482" stroke="#d4bce8" stroke-width="1.5" fill="none" opacity=".5"/>
+        <!-- 褶皱折痕（扇形向内收拢，表现纸张褶皱） -->
+        <path d="M200,250 C 178,300 166,392 158,482" stroke="#c9aedf" stroke-width="1.5" fill="none" opacity=".55"/>
+        <path d="M200,250 C 222,300 234,392 242,482" stroke="#c9aedf" stroke-width="1.5" fill="none" opacity=".55"/>
+        <path d="M200,256 C 170,306 150,396 138,482" stroke="#d4bce8" stroke-width="1.5" fill="none" opacity=".5"/>
+        <path d="M200,256 C 230,306 250,396 262,482" stroke="#d4bce8" stroke-width="1.5" fill="none" opacity=".5"/>
+        <path d="M200,250 C 190,320 186,400 183,482" stroke="#dcc8ee" stroke-width="1.2" fill="none" opacity=".45"/>
+        <path d="M200,250 C 210,320 214,400 217,482" stroke="#dcc8ee" stroke-width="1.2" fill="none" opacity=".45"/>
         <!-- 底部封边 -->
         <path d="M88,482 L 312,482" stroke="#b493cf" stroke-width="2"/>
 
-        <!-- 纱质蝴蝶结（半透明，浅紫） -->
-        <g transform="translate(200,366)" opacity=".55">
-          <!-- 纱质蝴蝶结两翼 -->
-          <path d="M0,0 C -34,-6 -58,-22 -52,-34 C -46,-46 -26,-44 -16,-30 C -12,-22 -6,-14 0,0 Z" fill="#e6d5f5"/>
-          <path d="M0,0 C 34,-6 58,-22 52,-34 C 46,-46 26,-44 16,-30 C 12,-22 6,-14 0,0 Z" fill="#e6d5f5"/>
+        <!-- 淡紫色网纱蝴蝶结（带细条纹） -->
+        <g transform="translate(200,368)">
+          <!-- 蝴蝶结两翼（半透明纱质） -->
+          <g opacity=".58">
+            <path d="M0,0 C -34,-4 -60,-20 -54,-34 C -48,-48 -26,-46 -16,-30 C -11,-21 -5,-12 0,0 Z" fill="#e0ccf4"/>
+            <path d="M0,0 C 34,-4 60,-20 54,-34 C 48,-48 26,-46 16,-30 C 11,-21 5,-12 0,0 Z" fill="#e0ccf4"/>
+            <!-- 左翼细条纹 -->
+            <path d="M-12,-6 L -44,-18" stroke="#c9a9e6" stroke-width="1" opacity=".7"/>
+            <path d="M-8,-4 L -40,-24" stroke="#c9a9e6" stroke-width="1" opacity=".7"/>
+            <path d="M-18,-8 L -50,-28" stroke="#d6bdf0" stroke-width="1" opacity=".6"/>
+            <!-- 右翼细条纹 -->
+            <path d="M12,-6 L 44,-18" stroke="#c9a9e6" stroke-width="1" opacity=".7"/>
+            <path d="M8,-4 L 40,-24" stroke="#c9a9e6" stroke-width="1" opacity=".7"/>
+            <path d="M18,-8 L 50,-28" stroke="#d6bdf0" stroke-width="1" opacity=".6"/>
+            <!-- 网纱纹理（横向细线） -->
+            <path d="M-44,-18 L -12,-6" stroke="#e9dcf8" stroke-width=".7" opacity=".7"/>
+            <path d="M44,-18 L 12,-6" stroke="#e9dcf8" stroke-width=".7" opacity=".7"/>
+          </g>
           <!-- 内层小翼 -->
-          <path d="M0,-2 C -20,-6 -34,-16 -30,-24 C -26,-32 -14,-30 -8,-20 C -5,-14 -2,-8 0,-2 Z" fill="#f2e9fa"/>
-          <path d="M0,-2 C 20,-6 34,-16 30,-24 C 26,-32 14,-30 8,-20 C 5,-14 2,-8 0,-2 Z" fill="#f2e9fa"/>
+          <g opacity=".6">
+            <path d="M0,-2 C -22,-6 -38,-16 -34,-26 C -30,-34 -16,-32 -9,-21 C -5,-14 -2,-8 0,-2 Z" fill="#ede0f8"/>
+            <path d="M0,-2 C 22,-6 38,-16 34,-26 C 30,-34 16,-32 9,-21 C 5,-14 2,-8 0,-2 Z" fill="#ede0f8"/>
+          </g>
           <!-- 中心结 -->
-          <circle r="9" fill="#d8c2ec"/>
+          <circle r="9" fill="#d4bce8"/>
           <circle r="4" fill="#f6eefb"/>
           <!-- 下垂纱尾 -->
-          <path d="M-6,8 C -10,30 -14,52 -12,74 L 2,74 C 0,52 -2,30 -2,8 Z" fill="#e6d5f5"/>
-          <path d="M6,8 C 10,30 14,52 12,74 L -2,74 C 0,52 2,30 2,8 Z" fill="#efe2f8"/>
+          <g opacity=".5">
+            <path d="M-6,8 C -10,32 -14,54 -12,76 L 2,76 C 0,54 -2,32 -2,8 Z" fill="#e0ccf4"/>
+            <path d="M6,8 C 10,32 14,54 12,76 L -2,76 C 0,54 2,32 2,8 Z" fill="#ede0f8"/>
+            <path d="M-4,14 L -4,70" stroke="#c9a9e6" stroke-width=".8" opacity=".6"/>
+            <path d="M5,14 L 5,70" stroke="#c9a9e6" stroke-width=".8" opacity=".6"/>
+          </g>
         </g>
 
         <!-- 高光点缀 -->
