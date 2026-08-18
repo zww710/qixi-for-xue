@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>七夕快乐 · 致陈维雪 ❤</title>
+<meta property="og:title" content="七夕快乐 · 致陈维雪 ❤">
+<meta property="og:description" content="送你一束花，还有一封情书。">
+
+<style>
+  /* ============ 主题配色（可修改） ============ */
+  :root {
+    --bg1: #14071f;   /* 夜空深紫 */
+    --bg2: #2b1440;
+    --bg3: #4a1d4d;   /* 到浪漫玫红 */
+    --rose: #ff4d6d;
+    --pink: #ff8fab;
+    --gold: #ffd166;
+    --text: #fff5f5;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    background: var(--bg1);
+    color: var(--text);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* ============ 夜空背景 ============ */
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background: radial-gradient(120% 80% at 50% 0%, var(--bg2) 0%, var(--bg1) 60%, #0a0314 100%);
+  }
+  .moon {
+    position: absolute; top: 8%; right: 12%;
+    width: 64px; height: 64px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #fffbe8, #ffe9b8 70%, #ffd9a0);
+    box-shadow: 0 0 60px 20px rgba(255, 225, 160, .35);
+    animation: moonGlow 5s ease-in-out infinite;
+  }
+  @keyframes moonGlow { 0%,100% { box-shadow: 0 0 50px 16px rgba(255,225,160,.3);} 50% { box-shadow: 0 0 80px 28px rgba(255,225,160,.5);} }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    opacity: .9;
+  }
+  @keyframes twinkle { 0%,100% { opacity:.15; transform: scale(.8);} 50% { opacity:1; transform: scale(1.2);} }
+
+  .shooting-star {
+    position: absolute; top: 10%; left: 70%;
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,.9), transparent);
+    border-radius: 2px;
+    transform: rotate(-25deg);
+    opacity: 0;
+    animation: shoot 9s ease-in infinite;
+  }
+  @keyframes shoot {
+    0%, 82% { opacity: 0; transform: translate(0,0) rotate(-25deg);}
+    84% { opacity: 1; }
+    92% { opacity: 0; transform: translate(-40vw, 22vh) rotate(-25deg);}
+    100% { opacity: 0; }
+  }
+
+  /* ============ 漂浮元素层 ============ */
+  .fx-layer { position: fixed; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+
+  .petal {
+    position: absolute; top: -6vh;
+    width: 15px; height: 22px;
+    border-radius: 50% 50% 50% 0;
+    background: linear-gradient(135deg, #ffd6e0, #ff8fab);
+    animation: petalFall var(--dur, 8s) linear var(--delay, 0s) forwards;
+    opacity: 0;
+  }
+  @keyframes petalFall {
+    0%   { transform: translateY(-5vh) translateX(0) rotate(0deg); opacity: 0; }
+    8%   { opacity: .95; }
+    100% { transform: translateY(115vh) translateX(var(--drift, 60px)) rotate(360deg); opacity: .4; }
+  }
+
+  .fheart {
+    position: absolute; bottom: -8vh;
+    animation: heartUp var(--dur, 10s) linear var(--delay, 0s) forwards;
+    opacity: 0;
+  }
+  @keyframes heartUp {
+    0%   { transform: translateY(0) scale(.5); opacity: 0; }
+    12%  { opacity: .85; }
+    100% { transform: translateY(-118vh) scale(1.25); opacity: 0; }
+  }
+
+  /* ============ 场景切换 ============ */
+  .scene {
+    position: fixed; inset: 0; z-index: 5;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 20px;
+    opacity: 0; pointer-events: none;
+    transition: opacity .8s ease;
+  }
+  .scene.active { opacity: 1; pointer-events: auto; }
+
+  /* ============ 封面 ============ */
+  .title {
+    font-size: clamp(34px, 9vw, 60px);
+    letter-spacing: 6px;
+    font-weight: 700;
+    background: linear-gradient(120deg, #ffe3ec, #ff8fab, #ff4d6d);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: titleGlow 3s ease-in-out infinite;
+  }
+  @keyframes titleGlow { 0%,100% { filter: drop-shadow(0 0 6px rgba(255,143,171,.4));} 50% { filter: drop-shadow(0 0 18px rgba(255,77,109,.7));} }
+  .subtitle { margin-top: 14px; font-size: 17px; color: #ffd9e2; letter-spacing: 3px; opacity: .9; }
+  .subtitle .heart { display: inline-block; animation: beat 1.4s ease-in-out infinite; }
+  @keyframes beat { 0%,100% { transform: scale(1);} 15% { transform: scale(1.35);} 30% { transform: scale(1);} 45% { transform: scale(1.25);} 60% { transform: scale(1);} }
+
+  /* 通用按钮 */
+  .btn {
+    margin-top: 34px;
+    padding: 14px 34px;
+    font-size: 17px; letter-spacing: 3px;
+    color: #fff;
+    border: none; border-radius: 999px;
+    background: linear-gradient(135deg, #ff8fab, #ff4d6d);
+    box-shadow: 0 8px 26px rgba(255,77,109,.45);
+    cursor: pointer;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .btn:active { transform: scale(.94); }
+  .btn.ghost {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,143,171,.6);
+    box-shadow: none;
+    color: #ffd9e2;
+  }
+  .hint { margin-top: 16px; font-size: 13px; color: rgba(255,255,255,.55); letter-spacing: 2px; }
+
+  /* ============ 花束场景 ============ */
+  .bouquet-wrap {
+    position: relative;
+    animation: bouquetIn 1.2s cubic-bezier(.22,1,.36,1) both;
+  }
+  @keyframes bouquetIn {
+    from { transform: scale(.7) translateY(30px); opacity: 0; }
+    to   { transform: scale(1) translateY(0); opacity: 1; }
+  }
+  .bouquet-caption {
+    margin-top: 20px;
+    font-size: 22px; letter-spacing: 4px;
+    color: #fff;
+    opacity: 0; animation: fadeUp .9s ease .7s forwards;
+  }
+  .bouquet-caption small { display:block; margin-top: 8px; font-size: 13px; color: #ffc9d6; letter-spacing: 3px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px);} to { opacity: 1; transform: translateY(0);} }
+
+  .sparkle { position: absolute; color: var(--gold); animation: spark 2.4s ease-in-out infinite; pointer-events: none; }
+  @keyframes spark { 0%,100% { opacity: 0; transform: scale(.3);} 50% { opacity: 1; transform: scale(1.15);} }
+
+  /* ============ 信封 ============ */
+  .envelope {
+    position: relative; width: 300px; height: 200px;
+    cursor: pointer; perspective: 900px;
+    transition: transform .5s ease, opacity .5s ease;
+  }
+  .envelope .env-back {
+    position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(160deg, #f7c9d4, #ef9cb6);
+    border-radius: 10px;
+    box-shadow: 0 16px 40px rgba(0,0,0,.3);
+  }
+  .envelope .env-letter {
+    position: absolute; left: 12px; right: 12px; top: 14px; bottom: 14px;
+    background: #fffdf6; border-radius: 6px; z-index: 1;
+    transition: transform .5s cubic-bezier(.22,1,.36,1) .15s;
+  }
+  .envelope .env-front {
+    position: absolute; inset: 0; z-index: 2;
+    background: linear-gradient(160deg, #f9d6e0, #f3b2c6);
+    clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+    border-radius: 10px;
+  }
+  .envelope .env-flap {
+    position: absolute; top: 0; left: 0; width: 100%; height: 52%; z-index: 3;
+    background: linear-gradient(180deg, #fbdee7, #ef9cb6);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform .5s ease, z-index 0s .5s;
+    border-radius: 10px 10px 0 0;
+  }
+  .envelope .env-seal {
+    position: absolute; left: 50%; top: 50%; z-index: 4;
+    transform: translate(-50%, -50%);
+    width: 46px; height: 46px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #fff;
+    background: radial-gradient(circle at 35% 30%, #ff8fab, #e63e5f);
+    box-shadow: 0 4px 14px rgba(200,30,70,.45);
+    transition: transform .5s ease, opacity .4s ease;
+  }
+  .envelope.open .env-flap { transform: rotateX(180deg); z-index: 0; }
+  .envelope.open .env-letter { transform: translateY(-58%); }
+  .envelope.open .env-seal { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  .envelope.gone { transform: translateY(40px) scale(.8); opacity: 0; }
+
+  /* ============ 完整情书 ============ */
+  .letter-full {
+    position: fixed; inset: 0; z-index: 8;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; overflow: auto;
+    opacity: 0; transform: scale(.9); pointer-events: none;
+    transition: opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
+  }
+  .letter-full.show { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+  .paper {
+    position: relative;
+    max-width: 560px; width: 100%;
+    max-height: 86vh; overflow: auto;
+    background: linear-gradient(180deg, #fffdf6, #fff6e8);
+    color: #5a3b3b;
+    border-radius: 10px;
+    padding: 42px 34px 34px;
+    box-shadow: 0 24px 70px rgba(0,0,0,.4), 0 0 0 1px rgba(200,150,120,.15);
+    font-family: "Kaiti SC", "STKaiti", "KaiTi", "楷体", "FangSong", serif;
+    text-align: left;
+    line-height: 2;
+    animation: paperIn .8s cubic-bezier(.22,1,.36,1) .1s both;
+  }
+  @keyframes paperIn { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .paper::before {
+    content: "❤"; position: absolute; top: -22px; left: 50%; transform: translateX(-50%);
+    font-size: 26px; filter: drop-shadow(0 2px 4px rgba(200,30,70,.4));
+  }
+  .paper h2 { font-size: 24px; letter-spacing: 4px; text-align: center; margin-bottom: 10px; color: #d9446a; }
+  .paper .salute { font-size: 17px; font-weight: bold; color: #b0405c; }
+  .paper p { font-size: 16.5px; margin-top: 4px; text-indent: 2em; }
+  .paper .sign { text-align: right; margin-top: 26px; font-size: 18px; color: #b0405c; }
+  .paper .date { text-align: right; margin-top: 6px; font-size: 14px; color: #b89292; }
+  .paper .replay {
+    display: block; margin: 30px auto 0; text-align: center;
+    font-size: 13px; color: #d98a9a; letter-spacing: 3px; cursor: pointer;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  /* 关闭按钮（信封页返回） */
+  .close-fx { position: fixed; top: 18px; right: 18px; z-index: 9; font-size: 15px; color: #ffd9e2; opacity: .7; }
+</style>
+</head>
+<body>
+
+  <!-- 夜空背景 -->
+  <div class="bg">
+    <div class="moon"></div>
+    <div class="shooting-star"></div>
+  </div>
+  <div id="stars"></div>
+
+  <!-- 漂浮花瓣 + 爱心 -->
+  <div class="fx-layer" id="fx"></div>
+
+  <!-- ============ 场景一：封面 ============ -->
+  <section class="scene active" id="scene-intro">
+    <div class="title">七夕快乐</div>
+    <div class="subtitle">致 陈维雪 <span class="heart">❤</span></div>
+    <button class="btn" id="btnReceive">💐 点击收花</button>
+    <div class="hint">把这一份心意，轻轻送给你</div>
+  </section>
+
+  <!-- ============ 场景二：花束 ============ -->
+  <section class="scene" id="scene-bouquet">
+    <div class="bouquet-wrap">
+      <svg id="bouquet" width="300" height="360" viewBox="0 0 400 480" style="overflow:visible">
+        <defs>
+          <!-- 花瓣 -->
+          <path id="petal" d="M0,0 C12,-2 22,-8 24,-18 C26,-28 20,-38 8,-42 C2,-44 -2,-44 -8,-42 C-20,-38 -26,-28 -24,-18 C-22,-8 -12,-2 0,0 Z"/>
+          <!-- 叶子 -->
+          <path id="leaf" d="M0,0 C 10,-6 24,-4 26,10 C 16,18 4,16 0,0 Z"/>
+          <!-- 玫瑰花渐变 -->
+          <radialGradient id="gRed" cx="36%" cy="32%" r="70%">
+            <stop offset="0%" stop-color="#ff7a94"/>
+            <stop offset="55%" stop-color="#ff2e5e"/>
+            <stop offset="100%" stop-color="#b3123a"/>
+          </radialGradient>
+          <radialGradient id="gPink" cx="36%" cy="32%" r="70%">
+            <stop offset="0%" stop-color="#ffd3e0"/>
+            <stop offset="55%" stop-color="#ff8fab"/>
+            <stop offset="100%" stop-color="#e05a86"/>
+          </radialGradient>
+          <radialGradient id="gBlush" cx="36%" cy="32%" r="70%">
+            <stop offset="0%" stop-color="#fff7f9"/>
+            <stop offset="55%" stop-color="#ffe3ec"/>
+            <stop offset="100%" stop-color="#ffb8cd"/>
+          </radialGradient>
+          <radialGradient id="gLav" cx="36%" cy="32%" r="70%">
+            <stop offset="0%" stop-color="#efe6ff"/>
+            <stop offset="55%" stop-color="#c9a8ff"/>
+            <stop offset="100%" stop-color="#8f6bd6"/>
+          </radialGradient>
+
+          <!-- 红玫瑰 -->
+          <g id="roseRed">
+            <g fill="url(#gRed)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gRed)" transform="scale(.72) rotate(30)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gRed)" transform="scale(.48)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(72)"/>
+              <use href="#petal" transform="rotate(144)"/><use href="#petal" transform="rotate(216)"/>
+              <use href="#petal" transform="rotate(288)"/>
+            </g>
+            <circle r="8" fill="#8f0e2e"/>
+            <circle r="4" fill="#ffb3c1"/>
+          </g>
+
+          <!-- 粉玫瑰 -->
+          <g id="rosePink">
+            <g fill="url(#gPink)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gPink)" transform="scale(.72) rotate(30)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gPink)" transform="scale(.48)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(72)"/>
+              <use href="#petal" transform="rotate(144)"/><use href="#petal" transform="rotate(216)"/>
+              <use href="#petal" transform="rotate(288)"/>
+            </g>
+            <circle r="8" fill="#c02052"/>
+            <circle r="4" fill="#ffd3e0"/>
+          </g>
+
+          <!-- 香槟/白玫瑰 -->
+          <g id="roseBlush">
+            <g fill="url(#gBlush)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gBlush)" transform="scale(.72) rotate(30)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gBlush)" transform="scale(.48)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(72)"/>
+              <use href="#petal" transform="rotate(144)"/><use href="#petal" transform="rotate(216)"/>
+              <use href="#petal" transform="rotate(288)"/>
+            </g>
+            <circle r="8" fill="#f0a8bc"/>
+            <circle r="4" fill="#fff7f9"/>
+          </g>
+
+          <!-- 薰衣草紫玫瑰 -->
+          <g id="roseLav">
+            <g fill="url(#gLav)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gLav)" transform="scale(.72) rotate(30)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(60)"/>
+              <use href="#petal" transform="rotate(120)"/><use href="#petal" transform="rotate(180)"/>
+              <use href="#petal" transform="rotate(240)"/><use href="#petal" transform="rotate(300)"/>
+            </g>
+            <g fill="url(#gLav)" transform="scale(.48)">
+              <use href="#petal" transform="rotate(0)"/><use href="#petal" transform="rotate(72)"/>
+              <use href="#petal" transform="rotate(144)"/><use href="#petal" transform="rotate(216)"/>
+              <use href="#petal" transform="rotate(288)"/>
+            </g>
+            <circle r="8" fill="#6d4fc0"/>
+            <circle r="4" fill="#efe6ff"/>
+          </g>
+        </defs>
+
+        <!-- 花茎 -->
+        <g stroke="#3f7d4e" stroke-width="4" fill="none" stroke-linecap="round">
+          <path d="M200,128 C 198,180 200,240 200,345"/>
+          <path d="M140,158 C 150,220 175,280 200,345"/>
+          <path d="M262,158 C 250,220 228,280 200,345"/>
+          <path d="M105,212 C 130,270 165,310 200,345"/>
+          <path d="M295,212 C 268,270 235,310 200,345"/>
+          <path d="M165,225 C 175,275 188,315 200,345"/>
+          <path d="M238,225 C 225,275 212,315 200,345"/>
+          <path d="M200,92 C 200,120 200,160 200,128"/>
+        </g>
+
+        <!-- 叶子 -->
+        <g fill="#4d9a62">
+          <use href="#leaf" transform="translate(160,250) rotate(-40) scale(1.1)"/>
+          <use href="#leaf" transform="translate(242,255) rotate(35) scale(1.1)"/>
+          <use href="#leaf" transform="translate(135,285) rotate(-55) scale(.95)"/>
+          <use href="#leaf" transform="translate(266,290) rotate(55) scale(.95)"/>
+        </g>
+
+        <!-- 包装纸 -->
+        <path d="M200,300 C 152,338 122,398 112,470 L 288,470 C 278,398 248,338 200,300 Z"
+              fill="#ffd6e0" stroke="#f3b2c6" stroke-width="1"/>
+        <path d="M200,300 C 168,340 150,398 145,470 L 200,470 Z" fill="#ffc9d8" opacity=".7"/>
+        <path d="M200,300 C 232,340 250,398 255,470 L 200,470 Z" fill="#ffe3ec" opacity=".6"/>
+
+        <!-- 丝带 -->
+        <rect x="150" y="342" width="100" height="16" rx="8" fill="#ff4d6d"/>
+        <path d="M150,350 L 138,368 L 150,362 Z" fill="#ff2e5e"/>
+        <path d="M250,350 L 262,368 L 250,362 Z" fill="#ff2e5e"/>
+
+        <!-- 玫瑰花（从后往前） -->
+        <use href="#roseLav"   transform="translate(105,212) scale(1.25)"/>
+        <use href="#roseRed"   transform="translate(295,212) scale(1.25)"/>
+        <use href="#rosePink"  transform="translate(140,158) scale(1.5)"/>
+        <use href="#roseBlush" transform="translate(262,158) scale(1.5)"/>
+        <use href="#roseBlush" transform="translate(165,225) scale(1.3)"/>
+        <use href="#rosePink"  transform="translate(238,225) scale(1.3)"/>
+        <use href="#rosePink"  transform="translate(200,92)  scale(1.15)"/>
+        <use href="#roseRed"   transform="translate(200,128) scale(1.75)"/>
+
+        <!-- 蝴蝶结 -->
+        <g transform="translate(200,350)">
+          <ellipse cx="-20" cy="-6" rx="20" ry="12" fill="#ff4d6d" transform="rotate(-18)"/>
+          <ellipse cx="20" cy="-6" rx="20" ry="12" fill="#ff4d6d" transform="rotate(18)"/>
+          <circle r="9" fill="#e63e5f"/>
+        </g>
+      </svg>
+
+      <!-- 光点 -->
+      <span class="sparkle" style="left:8%; top:22%;">✦</span>
+      <span class="sparkle" style="right:6%; top:18%; animation-delay:.6s;">✦</span>
+      <span class="sparkle" style="left:14%; top:58%; animation-delay:1.2s;">✧</span>
+      <span class="sparkle" style="right:12%; top:55%; animation-delay:1.8s;">✧</span>
+      <span class="sparkle" style="left:46%; top:6%; animation-delay:.9s;">✦</span>
+    </div>
+
+    <div class="bouquet-caption">
+      送你一束花 🌹
+      <small>愿这份心意，如花般盛开</small>
+    </div>
+    <button class="btn ghost" id="btnLetter" style="opacity:0; pointer-events:none;">💌 打开情书</button>
+  </section>
+
+  <!-- ============ 场景三：信封 → 情书 ============ -->
+  <section class="scene" id="scene-letter">
+    <div class="envelope" id="envelope">
+      <div class="env-back"></div>
+      <div class="env-letter"></div>
+      <div class="env-front"></div>
+      <div class="env-flap"></div>
+      <div class="env-seal">❤</div>
+    </div>
+    <div class="hint" id="envHint" style="margin-top:24px;">💌 点一下信封，拆开它</div>
+  </section>
+
+  <!-- ============ 完整情书 ============ -->
+  <div class="letter-full" id="letterFull">
+    <div class="paper">
+      <h2>致 陈维雪</h2>
+
+      <!-- ★ 情书正文（可自行修改）★ -->
+      <p class="salute">见字如面。</p>
+      <p>今天是七夕，牛郎与织女在鹊桥相会，而我，想把藏在心底很久的话，说给你听。</p>
+      <p>遇见你之前，我从没想过，一个人的出现，能让平凡的日子都变得温柔。你的笑容，是我见过最美的风景；你的声音，是我听过最动听的歌。每当想起你，心里就像有烟花在绽放。</p>
+      <p>我喜欢你，不是一时兴起，而是经过了每一个日出与日落之后，越来越坚定的心意。</p>
+      <p>如果可以，我想陪你走过往后的每一个节日、每一个四季，把所有的浪漫，都只留给你一个人。</p>
+      <p>雪，七夕快乐。愿这束花，能替我把这份心意，轻轻送到你心里。</p>
+
+      <div class="sign">—— 郑伟</div>
+      <div class="date">二〇二六年 · 七夕</div>
+      <div class="replay" id="btnReplay">⟳ 再看一遍</div>
+    </div>
+  </div>
+
+<script>
+  /* ============ 生成星空 ============ */
+  (function makeStars() {
+    const wrap = document.getElementById('stars');
+    for (let i = 0; i < 90; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.4 + 1;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.setProperty('--dur', (Math.random() * 3 + 2).toFixed(2) + 's');
+      s.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+      wrap.appendChild(s);
+    }
+  })();
+
+  /* ============ 漂浮花瓣 ============ */
+  (function petals() {
+    const fx = document.getElementById('fx');
+    const colors = ['#ffd6e0', '#ffb3c1', '#ff8fab', '#ff4d6d', '#ffc9d8'];
+    function spawn() {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.background = 'linear-gradient(135deg,' + colors[(Math.random()*colors.length)|0] + ', #ff8fab)';
+      p.style.setProperty('--dur', (Math.random() * 5 + 6).toFixed(2) + 's');
+      p.style.setProperty('--delay', '0s');
+      p.style.setProperty('--drift', (Math.random() * 160 - 80).toFixed(0) + 'px');
+      p.style.transform = 'rotate(' + (Math.random()*360) + 'deg)';
+      fx.appendChild(p);
+      p.addEventListener('animationend', function(){ p.remove(); });
+    }
+    setInterval(spawn, 750);
+  })();
+
+  /* ============ 漂浮爱心 ============ */
+  (function hearts() {
+    const fx = document.getElementById('fx');
+    const emojis = ['❤️', '💗', '💕', '💖', '🌸'];
+    function spawn() {
+      const h = document.createElement('div');
+      h.className = 'fheart';
+      h.textContent = emojis[(Math.random()*emojis.length)|0];
+      h.style.left = (Math.random() * 90 + 5) + '%';
+      h.style.fontSize = (Math.random() * 18 + 14) + 'px';
+      h.style.setProperty('--dur', (Math.random() * 6 + 8).toFixed(2) + 's');
+      h.style.setProperty('--delay', '0s');
+      fx.appendChild(h);
+      h.addEventListener('animationend', function(){ h.remove(); });
+    }
+    setInterval(spawn, 1800);
+  })();
+
+  /* ============ 场景切换 ============ */
+  var scenes = {
+    intro:   document.getElementById('scene-intro'),
+    bouquet: document.getElementById('scene-bouquet'),
+    letter:  document.getElementById('scene-letter')
+  };
+  function show(name) {
+    for (var k in scenes) scenes[k].classList.remove('active');
+    scenes[name].classList.add('active');
+  }
+
+  var btnLetter = document.getElementById('btnLetter');
+
+  document.getElementById('btnReceive').addEventListener('click', function () {
+    show('bouquet');
+    // 花束登场后，浮现"打开情书"按钮
+    setTimeout(function () {
+      btnLetter.style.transition = 'opacity .8s ease';
+      btnLetter.style.opacity = '1';
+      btnLetter.style.pointerEvents = 'auto';
+    }, 2600);
+  });
+
+  btnLetter.addEventListener('click', function () {
+    show('letter');
+    document.getElementById('envelope').classList.remove('open', 'gone');
+    document.getElementById('envHint').style.opacity = '1';
+  });
+
+  var envelope = document.getElementById('envelope');
+  var letterFull = document.getElementById('letterFull');
+  envelope.addEventListener('click', function () {
+    if (envelope.classList.contains('open')) return;
+    envelope.classList.add('open');
+    document.getElementById('envHint').style.opacity = '0';
+    setTimeout(function () {
+      envelope.classList.add('gone');
+      letterFull.classList.add('show');
+    }, 700);
+  });
+
+  document.getElementById('btnReplay').addEventListener('click', function () {
+    letterFull.classList.remove('show');
+    btnLetter.style.opacity = '0';
+    btnLetter.style.pointerEvents = 'none';
+    show('intro');
+  });
+</script>
+</body>
+</html>
