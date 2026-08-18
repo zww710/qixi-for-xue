@@ -513,12 +513,78 @@ body.bloomed .after-line {
   }
 }
 
+.music-btn {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 20px);
+  left: 18px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffe9ef;
+  font-size: 19px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 12;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.music-btn:active {
+  transform: scale(0.88);
+}
+
+.music-btn.playing {
+  background: rgba(255, 134, 168, 0.3);
+  border-color: rgba(255, 134, 168, 0.65);
+  animation: musicPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes musicPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 134, 168, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 11px rgba(255, 134, 168, 0);
+  }
+}
+
+.music-btn .icon {
+  pointer-events: none;
+}
+
+.music-btn.playing .icon {
+  animation: bounce 0.9s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @media (max-width: 480px) {
   .moon {
     width: 48px;
     height: 48px;
     top: calc(env(safe-area-inset-top, 0px) + 18px);
     right: 16px;
+  }
+
+  .music-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 17px;
+    top: calc(env(safe-area-inset-top, 0px) + 18px);
+    left: 14px;
   }
 
   .top {
@@ -583,6 +649,8 @@ body.bloomed .after-line {
 <body>
 <canvas id="sky" aria-hidden="true"></canvas>
 <div class="moon" aria-hidden="true"></div>
+<button class="music-btn" id="musicBtn" type="button" aria-label="播放/暂停背景音乐"><span class="icon">♫</span></button>
+<audio id="bgm" loop preload="auto" src="bgm.mp3"></audio>
 
 <div class="scene">
   <header class="top">
@@ -696,12 +764,15 @@ body.bloomed .after-line {
   <div class="letter" role="dialog" aria-modal="true" aria-label="七夕情书">
     <button class="letter-close" id="letterClose" type="button" aria-label="关闭情书">×</button>
     <div class="seal">七夕</div>
-    <h3>给 陈维雪</h3>
-    <p>维雪：</p>
-    <p>遇见你之后，我才知道，<br>喜欢一个人时，连风都是甜的。</p>
-    <p>这束花不会凋谢，<br>就像我想一直陪你的那颗心。</p>
-    <p>七夕快乐。</p>
-    <p class="sign">—— 郑伟</p>
+    <h3>致 陈维雪</h3>
+    <p class="salute">见字如面。</p>
+    <p>今天是七夕，牛郎与织女在鹊桥相会，而我，想把藏在心底很久的话，说给你听。</p>
+    <p>遇见你之前，我从没想过，一个人的出现，能让平凡的日子都变得温柔。你的笑容，是我见过最美的风景；你的声音，是我听过最动听的歌。每当想起你，心里就像有烟花在绽放。</p>
+    <p>我喜欢你，不是一时兴起，而是经过了每一个日出与日落之后，越来越坚定的心意。</p>
+    <p>如果可以，我想陪你走过往后的每一个节日、每一个四季，把所有的浪漫，都只留给你一个人。</p>
+    <p>雪，七夕快乐。愿这束花，能替我把这份心意，轻轻送到你心里。</p>
+    <div class="sign">—— 郑伟</div>
+    <div class="date">二〇二六年 · 七夕</div>
     <div class="replay"><button id="replayBtn" type="button">再看一次花开</button></div>
   </div>
 </div>
@@ -1002,6 +1073,46 @@ replayBtn.addEventListener('click', function () {
 if (window.location.hash === '#bloom') {
   setTimeout(bloom, 700);
 }
+
+// ===== 背景音乐（告白气球 bgm.mp3）=====
+var bgm = document.getElementById('bgm');
+var musicBtn = document.getElementById('musicBtn');
+
+function setMusicState(playing) {
+  musicBtn.classList.toggle('playing', playing);
+  musicBtn.querySelector('.icon').textContent = playing ? '♫' : '♫';
+  musicBtn.setAttribute('aria-label', playing ? '暂停背景音乐' : '播放背景音乐');
+}
+
+function tryPlay() {
+  var p = bgm.play();
+  if (p && p.then) {
+    p.then(function () {
+      setMusicState(true);
+    }).catch(function () {
+      setMusicState(false);
+    });
+  } else {
+    setMusicState(true);
+  }
+}
+
+musicBtn.addEventListener('click', function (e) {
+  e.stopPropagation();
+  if (bgm.paused) {
+    tryPlay();
+  } else {
+    bgm.pause();
+    setMusicState(false);
+  }
+});
+
+// 用户首次点击屏幕时尝试自动播放（微信/移动端需用户手势后才能发声）
+function autoPlayOnce() {
+  if (bgm.paused) tryPlay();
+  document.removeEventListener('pointerdown', autoPlayOnce);
+}
+document.addEventListener('pointerdown', autoPlayOnce);
 </script>
 </body>
 </html>
